@@ -19,16 +19,19 @@ best_features_df['target'] = data['target']
 #sns.pairplot(best_features_df, hue='target')
 #plt.show() # can be uncommented to visualize pairplot for 90s songs
 
-
+"""
 # Box plots for all features in 90s songs
+
 fig, axes = plt.subplots(3, 5, figsize=(15, 10))
 axes = axes.flatten()
 for idx, col in enumerate(columns_corr[:-1]):  # exclude target
     axes[idx].boxplot(data[col])
     axes[idx].set_title(col)
+
 #plt.tight_layout()
 #plt.title('Box Plots of Features for 90s Songs')
 #plt.show() # can be uncommented to visualize box plots for 90s songs
+"""
 
 best_90s_features = corr
 best_90s_features_df = best_features_df
