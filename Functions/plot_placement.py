@@ -15,3 +15,12 @@ def plot_song_billboard_placement(song_title, song_artist, data):
         plt.show()
     else:
         print(f'No data found for the song "{song_title}".')
+
+def plot_song_prediction_comparison(test_data, song_name, y_pred):
+    test_data['predicted_next_rank'] = y_pred
+    plot_data = test_data[test_data['Song'] == song_name]
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(data=plot_data, x='Date', y='target_next_rank', label='Actual Rank')
+    sns.lineplot(data=plot_data, x='Date', y='predicted_next_rank', label='Predicted Rank')
+    plt.gca().invert_yaxis()  # Invert y-axis to have rank 1 at the top
+    plt.title(f'Actual vs Predicted Rank Over Time for {song_name}')
