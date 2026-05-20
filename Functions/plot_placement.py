@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
+import pandas as pd
 
 def plot_song_billboard_placement(song_title, song_artist, data):
     song_data = data[(data['Normalized Title'] == song_title) & (data['Artist'] == song_artist)]
@@ -25,12 +27,19 @@ def plot_song_prediction_comparison(test_data, song_name, y_pred):
     plt.gca().invert_yaxis()  # Invert y-axis to have rank 1 at the top
     plt.title(f'Actual vs Predicted Rank Over Time for {song_name}')
 
-def plot_song_prediction_comparison_lstm(test_data, song_name, y_pred):
-    plot_df = test_data.copy()
+def plot_song_prediction_comparison_lstm(test_meta, song_name, y_pred):
+    plot_df = test_meta.copy()
 
-    plot_df['predicted_next_rank'] = y_pred.reshape(-1)
+    plot_df['predicted_next_rank'] = np.asarray(y_pred).reshape(-1)
 
-    plot_data = plot_df[plot_df['Song'] == song_name].sort_values('Date')
+    plot_data = (
+        plot_df[plot_df['Song'].str.lower() == song_name.lower()]
+        .sort_values('Date')
+    )
+
+    if plot_data.empty:
+        print(f"No data found for song: {song_name}")
+        return
 
     plt.figure(figsize=(10, 6))
 
@@ -39,7 +48,7 @@ def plot_song_prediction_comparison_lstm(test_data, song_name, y_pred):
         x='Date',
         y='target_next_rank',
         marker='o',
-        label='Actual Rank'
+        label='Actual next week rank'
     )
 
     sns.lineplot(
@@ -47,11 +56,11 @@ def plot_song_prediction_comparison_lstm(test_data, song_name, y_pred):
         x='Date',
         y='predicted_next_rank',
         marker='o',
-        label='Predicted Rank'
+        label='Predicted next week rank'
     )
 
     plt.gca().invert_yaxis()
-    plt.title(f'Actual vs Predicted Next Week Rank Over Time for {song_name}')
+    plt.title(f'Actual vs Predicted Next Week Rank: {song_name}')
     plt.xlabel('Date')
     plt.ylabel('Billboard Rank')
     plt.xticks(rotation=45)
