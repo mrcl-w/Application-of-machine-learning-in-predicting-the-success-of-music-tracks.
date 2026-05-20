@@ -2,9 +2,9 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense
-from tensorflow.keras.losses import Huber
+from keras.models import Sequential
+from keras.layers import LSTM, Dense
+from keras.losses import Huber
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 
