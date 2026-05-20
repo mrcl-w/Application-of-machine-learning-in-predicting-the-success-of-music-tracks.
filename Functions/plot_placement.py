@@ -24,3 +24,37 @@ def plot_song_prediction_comparison(test_data, song_name, y_pred):
     sns.lineplot(data=plot_data, x='Date', y='predicted_next_rank', label='Predicted Rank')
     plt.gca().invert_yaxis()  # Invert y-axis to have rank 1 at the top
     plt.title(f'Actual vs Predicted Rank Over Time for {song_name}')
+
+def plot_song_prediction_comparison_lstm(test_data, song_name, y_pred):
+    plot_df = test_data.copy()
+
+    plot_df['predicted_next_rank'] = y_pred.reshape(-1)
+
+    plot_data = plot_df[plot_df['Song'] == song_name].sort_values('Date')
+
+    plt.figure(figsize=(10, 6))
+
+    sns.lineplot(
+        data=plot_data,
+        x='Date',
+        y='target_next_rank',
+        marker='o',
+        label='Actual Rank'
+    )
+
+    sns.lineplot(
+        data=plot_data,
+        x='Date',
+        y='predicted_next_rank',
+        marker='o',
+        label='Predicted Rank'
+    )
+
+    plt.gca().invert_yaxis()
+    plt.title(f'Actual vs Predicted Next Week Rank Over Time for {song_name}')
+    plt.xlabel('Date')
+    plt.ylabel('Billboard Rank')
+    plt.xticks(rotation=45)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
