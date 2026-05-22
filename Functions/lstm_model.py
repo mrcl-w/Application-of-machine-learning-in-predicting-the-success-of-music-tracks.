@@ -110,6 +110,6 @@ def build_and_evaluate_model(features: list, data: pd.DataFrame, SEQ_LEN: int = 
     rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     print("MAE:", mae)
     print("RMSE:", rmse)
-    return mae
+    return model, mae, rmse
 
 
