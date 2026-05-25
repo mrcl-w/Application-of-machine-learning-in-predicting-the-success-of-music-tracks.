@@ -49,7 +49,7 @@ def build_and_evaluate_model(features: list, data: pd.DataFrame, SEQ_LEN: int = 
 
     #split into train and test based on date
     target_dates = pd.to_datetime(target_dates)
-    threshold_date = pd.to_datetime("2023-01-01")
+    threshold_date = pd.to_datetime("2014-01-01")
 
     train_mask = target_dates < threshold_date
     test_mask = target_dates >= threshold_date
