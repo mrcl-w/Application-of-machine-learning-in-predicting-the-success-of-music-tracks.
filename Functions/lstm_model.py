@@ -24,7 +24,7 @@ def prepare_lstm_data(
     dataframe,
     features,
     seq_len=4,
-    val_date="2012-01-01",
+    val_date="2009-01-01",
     test_date="2014-01-01"
 ):
     groups = dataframe.groupby(['Song', 'Artist'])
@@ -60,6 +60,7 @@ def prepare_lstm_data(
 
     # Scale the features and target values using MinMaxScaler
     samples_train, timesteps, features_count = X_train.shape
+    samples_val = X_val.shape[0]
     samples_test = X_test.shape[0]
 
     x_scaler = MinMaxScaler()
@@ -68,6 +69,10 @@ def prepare_lstm_data(
         X_train.reshape(-1, features_count)
     ).reshape(samples_train, timesteps, features_count)
 
+    X_val = x_scaler.transform(
+        X_val.reshape(-1, features_count)
+    ).reshape(samples_val, timesteps, features_count)
+
     X_test = x_scaler.transform(
         X_test.reshape(-1, features_count)
     ).reshape(samples_test, timesteps, features_count)
@@ -75,7 +80,8 @@ def prepare_lstm_data(
     y_scaler = MinMaxScaler()
     y_train_scaled = y_scaler.fit_transform(y_train.reshape(-1, 1))
     y_val_scaled = y_scaler.transform(y_val.reshape(-1, 1))
-
+    y_test_scaled = y_scaler.transform(y_test.reshape(-1, 1))
+    
     return {
         "X_train": X_train,
         "X_val": X_val,

@@ -137,7 +137,7 @@ def plot_song_prediction_comparison_lstm(test_meta, song_name, y_pred):
     )
 
     plt.gca().invert_yaxis()
-    plt.title(f'Actual vs LSTM Prediction: {song_name}')
+    plt.title(f'Actual vs LSTM Prediction: "{song_name}"')
     plt.xlabel('Date')
     plt.ylabel('Billboard Rank')
     plt.xticks(rotation=45)
