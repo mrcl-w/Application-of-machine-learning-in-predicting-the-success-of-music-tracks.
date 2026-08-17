@@ -37,7 +37,7 @@ def plot_song_billboard_placement(song_title, song_artist, data):
     )
 
     plt.gca().invert_yaxis()
-    plt.title(f'Billboard Placement Over Time: {song_title.title()}')
+    plt.title(f'Billboard Placement Over Time: "{song_title.title()}"')
     plt.xlabel('Date')
     plt.ylabel('Billboard Rank')
     plt.xticks(rotation=45)
@@ -87,7 +87,7 @@ def plot_song_prediction_comparison(test_data, song_name, y_pred):
     )
 
     plt.gca().invert_yaxis()
-    plt.title(f'Actual vs XGBoost Prediction: {song_name}')
+    plt.title(f'Actual vs XGBoost Prediction: "{song_name}"')
     plt.xlabel('Date')
     plt.ylabel('Billboard Rank')
     plt.xticks(rotation=45)
@@ -226,7 +226,7 @@ def plot_xgboost_lstm_comparison(
         )
 
     plt.gca().invert_yaxis()
-    plt.title(f'Actual vs XGBoost vs LSTM: {song_name}')
+    plt.title(f'Actual vs XGBoost vs LSTM: "{song_name}"')
     plt.xlabel('Date')
     plt.ylabel('Billboard Rank')
     plt.xticks(rotation=45)
